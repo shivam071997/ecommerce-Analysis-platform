@@ -1,0 +1,24 @@
+---
+- name: Configure local DevOps environment
+  hosts: local
+  become: true
+
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create application directory
+      file:
+        path: /opt/ecommerce
+        state: directory
+        mode: '0755'
