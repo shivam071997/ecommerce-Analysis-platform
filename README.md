@@ -29,3 +29,4 @@ Ansible → Server Configuration
 Monitoring:
 
 Prometheus → Grafana
+# ecommerce-Analysis-platform
