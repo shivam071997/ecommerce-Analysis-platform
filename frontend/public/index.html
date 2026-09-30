@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Commerce Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .status {
+            padding: 10px;
+            background: #eee;
+            margin-bottom: 20px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>E-Commerce Analytics Platform</h1>
+
+<div class="status">
+    Backend status:
+    <span id="status">Checking...</span>
+</div>
+
+<h2>Products</h2>
+
+<div id="products"></div>
+
+<script>
+
+const BACKEND_URL = "http://localhost:5000";
+
+fetch(BACKEND_URL + "/health")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("status").innerText = data.status;
+    })
+    .catch(() => {
+        document.getElementById("status").innerText = "Backend unavailable";
+    });
+
+fetch(BACKEND_URL + "/api/products")
+    .then(response => response.json())
+    .then(products => {
+
+        const container = document.getElementById("products");
+
+        products.forEach(product => {
+
+            const div = document.createElement("div");
+
+            div.className = "product";
+
+            div.innerHTML = `
+                <strong>${product.name}</strong>
+                <br>
+                Price: ₹${product.price}
+            `;
+
+            container.appendChild(div);
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
